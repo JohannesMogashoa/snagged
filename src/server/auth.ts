@@ -9,6 +9,7 @@ import {
   sendResetPasswordEmail,
   sendVerificationEmail,
 } from "./email";
+import { nextCookies } from "better-auth/next-js";
 
 const prisma = new PrismaClient();
 
@@ -85,11 +86,10 @@ export const auth = betterAuth({
   },
 } satisfies BetterAuthOptions);
 
-export const getServerSession = cache(
-  async () =>
+export const getServerSession = cache(async () =>
     await auth.api.getSession({
       headers: await headers(),
-    }),
+    })
 );
 
 export type Session = typeof auth.$Infer.Session;

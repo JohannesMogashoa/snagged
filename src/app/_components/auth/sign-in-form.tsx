@@ -48,21 +48,7 @@ export function SigninForm({
     await authClient.signIn.social(
       {
         provider: "github",
-      },
-      {
-        onRequest: () => {
-          setPendingGithub(true);
-        },
-        onSuccess: async () => {
-          router.refresh();
-          // router.push("/");
-        },
-        onError: (ctx: ErrorContext) => {
-          toast("Something went wrong", {
-            description: ctx.error.message ?? "Something went wrong.",
-          });
-        },
-      },
+      }
     );
 
     setPendingGithub(false);

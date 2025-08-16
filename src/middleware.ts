@@ -1,6 +1,6 @@
-import type { Session } from "@/server/auth";
-import { betterFetch } from "@better-fetch/fetch";
+import { auth, type Session } from "@/server/auth";
 import { NextResponse, type NextRequest } from "next/server";
+import { betterFetch } from '@better-fetch/fetch';
 
 const authRoutes = ["/signin", "/signup"];
 const passwordRoutes = ["/reset-password", "/forgot-password"];
@@ -11,15 +11,12 @@ export default async function authMiddleware(request: NextRequest) {
   const isAuthRoute = authRoutes.includes(pathName);
   const isPasswordRoute = passwordRoutes.includes(pathName);
 
-  const { data: session } = await betterFetch<Session>(
-    "/api/auth/get-session",
-    {
-      baseURL: request.nextUrl.origin,
-      headers: {
-        cookie: request.headers.get("cookie") ?? "", // Forward the cookies from the request
-      },
+  const { data: session } = await betterFetch<Session>("/api/auth/get-session", {
+    baseURL: request.nextUrl.origin,
+    headers: {
+        cookie: request.headers.get("cookie") || "", // Forward the cookies from the request
     },
-  );
+});
 
   if (!session) {
     if (isAuthRoute || isPasswordRoute) {
@@ -30,14 +27,12 @@ export default async function authMiddleware(request: NextRequest) {
   }
 
   if (isAuthRoute || isPasswordRoute) {
-    return NextResponse.redirect(new URL("/", request.url));
+    return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: [
-    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|$).*)",
-  ],
+    matcher: ["/dashboard"]
 };
