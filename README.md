@@ -1,29 +1,71 @@
-# Create T3 App
+# Snagged
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+Snagged is currently an authenticated Next.js application foundation with a dashboard, Better Auth, Prisma persistence, and transactional-email tooling.
 
-## What's next? How do I make an app with this?
+The repository has moved beyond the default T3 README, but the current code does not yet expose enough domain-specific functionality to accurately describe Snagged as a particular marketplace, booking system, or other product. This README therefore documents the implemented application architecture without inventing a product story.
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+## Current application areas
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+```text
+/                 Snagged landing page
+/(auth)            authentication routes
+/dashboard         authenticated dashboard
+/api               server/API routes
+```
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+## Tech stack
 
-## Learn More
+- Next.js 15 + React 19
+- TypeScript
+- Better Auth
+- Prisma 6
+- TanStack Query
+- React Hook Form + Zod
+- React Email + Resend
+- Tailwind CSS 4
+- Radix/shadcn-style UI primitives
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+## Engineering foundation
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+The repository currently provides:
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+- sign-in/authentication route group;
+- server-side session helpers;
+- authenticated dashboard route;
+- Prisma database tooling;
+- reusable UI components;
+- form/validation dependencies;
+- email component/provider infrastructure;
+- Next.js server/API boundary.
 
-## How do I deploy this?
+## Getting started
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+```bash
+npm install
+npm run dev
+```
+
+Prisma client generation runs after install.
+
+Database helpers:
+
+```bash
+npm run db:generate
+npm run db:push
+npm run db:migrate
+npm run db:studio
+```
+
+Quality checks:
+
+```bash
+npm run typecheck
+npm run format:check
+npm run build
+```
+
+Configure the database, Better Auth, and Resend/email environment values before exercising those integrations.
+
+## Project status
+
+Snagged is an application scaffold with authentication and dashboard foundations. Once domain-specific features are implemented, the README should be expanded around those real workflows rather than retaining generic framework documentation.
